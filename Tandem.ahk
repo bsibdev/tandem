@@ -116,12 +116,12 @@ SetCapsLockState "AlwaysOff" ;prevent Capslock default toggle behavior. Make sur
 		capslock & space:: {
 			if WinActive(client_a) {
 				MouseGetPos &mouse_x,&mouse_y
-				mouseMove mouse_x,mouse_y
 				WinActivate(client_b)
+				mouseMove mouse_x,mouse_y
 			} else {
 				MouseGetPos &mouse_x,&mouse_y
-				mouseMove mouse_x,mouse_y
 				WinActivate(client_a)
+				mouseMove mouse_x,mouse_y
 			}
 	
 		}	
