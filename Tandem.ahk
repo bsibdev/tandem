@@ -112,7 +112,7 @@ SetCapsLockState "AlwaysOff" ;prevent Capslock default toggle behavior. Make sur
 		}
 		#HotIf
 
-	;tandem camera zoom
+	;tandem mousewheel up & down
 		capslock & WheelDown:: {
 			ControlClick ,client_a,,"WD"
 			ControlClick ,client_b,,"WD"
@@ -203,7 +203,7 @@ SetCapsLockState "AlwaysOff" ;prevent Capslock default toggle behavior. Make sur
 				controlSend "{d up}",,client_b
 		}
 
-	;tandem arrows (change hotbar page)
+	;tandem arrows (change hotbar page) (redundant with tandem mouse wheel)
 		capslock & up:: {
 			while getKeyState("up","P") {
 				controlSend "{up down}",,client_a
@@ -309,11 +309,12 @@ SetCapsLockState "AlwaysOff" ;prevent Capslock default toggle behavior. Make sur
 			keywait "alt"
 			keywait "a"
 		
+			/*
 			if !WinActive(client_a) and !WinActive(client_b){
 				winActivate(client_b)
 				winActivate(client_a)
 			}
-		
+			*/
 			sleep 50
 		
 			pgdn_count := thread_options["Shibuya Quartz"]
@@ -330,7 +331,10 @@ SetCapsLockState "AlwaysOff" ;prevent Capslock default toggle behavior. Make sur
 			ControlSend "{PgDn}",,client_a
 			ControlSend "{PgDn}",,client_b
 			}
-			sleep 300
+			
+
+/*			(moved to tendem_guest for more consistency)
+			sleep 300 
 		
 			destination_x := 640 
 			destination_y := 592
@@ -403,6 +407,12 @@ SetCapsLockState "AlwaysOff" ;prevent Capslock default toggle behavior. Make sur
 				WinActivate(client_b)
 			
 				mousemove yes_button_x,yes_button_y
+				
+
 			}
+		*/
+		sleep 300
+		controlSend "{ctrl down} {shift down} {alt down} {a} {ctrl up} {shift up} {alt up}",,client_a
+		controlSend "{ctrl down} {shift down} {alt down} {a} {ctrl up} {shift up} {alt up}",,client_b
 		}	
 	#HotIf

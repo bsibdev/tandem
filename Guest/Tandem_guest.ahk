@@ -91,31 +91,59 @@ imagine_process := client_split[2]
       }
     }
 
-^!y:: {
-     keywait "ctrl"
-     keywait "alt"
-     keywait "y"
-     logins := StrSplit(FileRead("C:\SMTI\logins.txt"),"`n") ;change contents to logins you want to use for that client, and make sure the path matches. 
-     account := StrSplit(logins[1],",") ;logins[n] n=line of logins.txt
+     ^!y:: {
+          keywait "ctrl"
+          keywait "alt"
+          keywait "y"
+          logins := StrSplit(FileRead("C:\SMTI\logins.txt"),"`n") ;change contents to logins you want to use for that client, and make sure the path matches. 
+          account := StrSplit(logins[1],",") ;logins[n] n=line of logins.txt
+          
+          user := account[1]
+          pwd := account[2]
+          
+          launchImagine()
+          sleep 500
+          login(user,pwd)
+     }
+     ^!.:: {
+          keywait "ctrl"
+          keywait "alt"
+          keywait "."
+          logins := StrSplit(FileRead("C:\SMTI\logins.txt"),"`n") ;copy logins.txt to game folder and change contents to logins you want to use for that client.
+          account := StrSplit(logins[2],",") ;logins[n] n=line of logins.txt
+          
+          user := account[1]
+          pwd := account[2]
+          
+          launchImagine()
+          sleep 500
+          login(user,pwd)          
+     }
+
+;thread clicks
+     ^!+a:: {
+          keywait "a"
+          sleep 300
      
-     user := account[1]
-     pwd := account[2]
-     
-     launchImagine()
-     sleep 500
-     login(user,pwd)
-}
-^!.:: {
-     keywait "ctrl"
-     keywait "alt"
-     keywait "."
-     logins := StrSplit(FileRead("C:\SMTI\logins.txt"),"`n") ;copy logins.txt to game folder and change contents to logins you want to use for that client.
-     account := StrSplit(logins[2],",") ;logins[n] n=line of logins.txt
-     
-     user := account[1]
-     pwd := account[2]
-     
-     launchImagine()
-     sleep 500
-     login(user,pwd)          
-}
+          destination_x := 825
+          destination_y := 774
+          yes_button_x := 897
+          yes_button_y := 643
+
+          mouseClick "left",destination_x,destination_y,,,"D NA"
+          sleep 15
+          mouseClick "left",destination_x,destination_y,,,"U NA"
+          sleep 15
+          mouseClick "left",destination_x,destination_y,,,"D NA"
+          sleep 15
+          mouseClick "left",destination_x,destination_y,,,"U NA"
+          sleep 50
+          mouseClick "left",yes_button_x,yes_button_y,,,"D NA"
+          sleep 15
+          mouseClick "left",yes_button_x,yes_button_y,,,"U NA"
+          sleep 15
+          mouseClick "left",yes_button_x,yes_button_y,,,"D NA"
+          sleep 15
+          mouseClick "left",yes_button_x,yes_button_y,,,"U NA"
+          sleep 50
+     }
