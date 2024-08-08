@@ -266,17 +266,17 @@ SetCapsLockState "AlwaysOff" ;prevent Capslock default toggle behavior. Make sur
 				controlSend "{ctrl down} {alt down} {shift down} {L} {ctrl up} {alt up} {shift up}",,"ahk_exe parsecd-b.exe"
 			}
 	;autolog
-		^!+y:: {
+		^!y:: {
 			keyWait "y"
 		
-			controlSend "{ctrl down} {alt down} {shift down} {y} {ctrl up} {alt up} {shift up}",,"ahk_exe parsecd-a.exe"
-			controlSend "{ctrl down} {alt down} {shift down} {y} {ctrl up} {alt up} {shift up}",,"ahk_exe parsecd-b.exe"
+			controlSend "{ctrl down} {alt down} {y} {ctrl up} {alt up} ",,"ahk_exe parsecd-a.exe"
+			controlSend "{ctrl down} {alt down} {y} {ctrl up} {alt up} ",,"ahk_exe parsecd-b.exe"
 		}
 		
-		^!+.:: {
+		^!.:: {
 			keyWait "."
 		
-			controlSend "{ctrl down} {alt down} {shift down} {.} {ctrl up} {alt up} {shift up}",,"ahk_exe parsecd-a.exe"
-			controlSend "{ctrl down} {alt down} {shift down} {.} {ctrl up} {alt up} {shift up}",,"ahk_exe parsecd-b.exe"
+			controlSend "{ctrl down} {alt down} {.} {ctrl up} {alt up} ",,"ahk_exe parsecd-a.exe"
+			controlSend "{ctrl down} {alt down} {.} {ctrl up} {alt up} ",,"ahk_exe parsecd-b.exe"
 		}
 	#HotIf
