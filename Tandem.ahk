@@ -115,8 +115,12 @@ SetCapsLockState "AlwaysOff" ;prevent Capslock default toggle behavior. Make sur
 	;quick switch, toggle active client
 		capslock & space:: {
 			if WinActive(client_a) {
+				mouseMove mouse_x,mouse_y
+				MouseGetPos &mouse_x,&mouse_y
 				WinActivate(client_b)
 			} else {
+				mouseMove mouse_x,mouse_y
+				MouseGetPos &mouse_x,&mouse_y
 				WinActivate(client_a)
 			}
 	
