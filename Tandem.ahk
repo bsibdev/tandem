@@ -111,7 +111,16 @@ SetCapsLockState "AlwaysOff" ;prevent Capslock default toggle behavior. Make sur
 			}
 		}
 		#HotIf
-	
+
+	;tandem camera zoom
+		capslock & WheelDown:: {
+			ControlClick ,client_a,,"WD"
+			ControlClick ,client_b,,"WD"
+		}
+		capslock & WheelUp:: {
+			ControlClick ,client_a,,"WU"
+			ControlClick ,client_b,,"WU"
+		}	
 	;quick switch, toggle active client
 		capslock & space:: {
 			if WinActive(client_a) {

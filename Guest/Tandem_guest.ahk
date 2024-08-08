@@ -64,7 +64,7 @@ imagine_process := client_split[2]
                     sleep 25
                     click("up",res_x/2,res_y/2.033898305084746)
                 }
-                sleep 200
+                sleep 1000
                 break
                 }
             }
@@ -87,7 +87,7 @@ imagine_process := client_split[2]
           }    
       }
       if (!login_screen) {
-          msgbox "Login screen not found`nTake a screenshot of the LOGIN button and add it to assets/login/","Tandem_guest"
+          msgbox "Login screen not found`nTake a screenshot of the LOGIN button and add it to image_match/login/","Tandem_guest","T3"
       }
     }
 
