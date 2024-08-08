@@ -13,7 +13,7 @@ Features:
 - character select (Remote only) [CapsLock + p] (Bind in game)
 - Windows Key (Remote only)  [capslock + tab]
 - Autolog (remote only) [ctrl + alt + y (account 1 & 2) / ctrl + alt + . (account 3 & 4)]
-- Quick teleport to lobby [ctrl + shift + alt + a]
+- Quick teleport to lobby (remote only) [ctrl + shift + alt + a]
 
 Future Features:
 - Record/Stop record for OBS (remote only) [(ctrl + alt + shift + G) / (ctrl + alt + shift + L)] (Bind in OBS) (Not working consistently)

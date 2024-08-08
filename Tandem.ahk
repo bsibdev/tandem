@@ -33,38 +33,37 @@ SetCapsLockState "AlwaysOff" ;prevent Capslock default toggle behavior. Make sur
 			
 				if WinActive(client_a) {
 					MouseGetPos &mousex, &mousey
-					
+
 					mouseClick "left",mousex,mousey,,,"D NA"
 					sleep 10
 					mouseClick "left",mousex,mousey,,,"U NA"
-					
+					sleep 10
 					WinActivate(client_b)
-					
 					mouseClick "left",mousex,mousey,,,"D NA"
 					sleep 10
 					mouseClick "left",mousex,mousey,,,"U NA"
-			
+					sleep 10
 					WinActivate(client_a)
-	
 					mousemove mousex,mousey
+					sleep 100
 				}
-			
-				if WinActive(client_b) {
-					MouseGetPos &mousex, &mousey
-					
-					mouseClick "left",mousex,mousey,,,"D NA"
-					sleep 20
-					mouseClick "left",mousex,mousey,,,"U NA"
-					
-					WinActivate(client_a)
-					
-					mouseClick "left",mousex,mousey,,,"D NA"
-					sleep 20
-					mouseClick "left",mousex,mousey,,,"U NA"
-			
-					WinActivate(client_b)
+		
+			if WinActive(client_b) {
+				MouseGetPos &mousex, &mousey
+
+				mouseClick "left",mousex,mousey,,,"D NA"
+				sleep 10
+				mouseClick "left",mousex,mousey,,,"U NA"
 	
-					mousemove mousex,mousey
+				sleep 10
+				WinActivate(client_a)
+				mouseClick "left",mousex,mousey,,,"D NA"
+				sleep 10
+				mouseClick "left",mousex,mousey,,,"U NA"
+				sleep 10
+				WinActivate(client_b)
+				mousemove mousex,mousey
+				sleep 100		
 				}
 			}
 
@@ -78,36 +77,35 @@ SetCapsLockState "AlwaysOff" ;prevent Capslock default toggle behavior. Make sur
 					MouseGetPos &mousex, &mousey
 
 					mouseClick "right",mousex,mousey,,,"D NA"
-					sleep 20
+					sleep 10
 					mouseClick "right",mousex,mousey,,,"U NA"
-					
+					sleep 10
 					WinActivate(client_b)
-					
 					mouseClick "right",mousex,mousey,,,"D NA"
-					sleep 20
+					sleep 10
 					mouseClick "right",mousex,mousey,,,"U NA"
-			
+					sleep 10
 					WinActivate(client_a)
-	
 					mousemove mousex,mousey
+					sleep 100
 			}
 		
 			if WinActive(client_b) {
 				MouseGetPos &mousex, &mousey
 
 				mouseClick "right",mousex,mousey,,,"D NA"
-				sleep 20
+				sleep 10
 				mouseClick "right",mousex,mousey,,,"U NA"
-				
+	
+				sleep 10
 				WinActivate(client_a)
-				
 				mouseClick "right",mousex,mousey,,,"D NA"
-				sleep 20
+				sleep 10
 				mouseClick "right",mousex,mousey,,,"U NA"
-		
+				sleep 10
 				WinActivate(client_b)
-
-				mousemove mousex,mousey		
+				mousemove mousex,mousey
+				sleep 100		
 			}
 		}
 		#HotIf
@@ -141,7 +139,7 @@ SetCapsLockState "AlwaysOff" ;prevent Capslock default toggle behavior. Make sur
 	#HotIf !remote
 	;terminate all open clients
 	CapsLock & p:: {
-		keyWait "CapsLock"
+		
 		keyWait "p"
 
 		client_a_split := StrSplit(client_a," ")
