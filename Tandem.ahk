@@ -35,13 +35,13 @@ SetCapsLockState "AlwaysOff" ;prevent Capslock default toggle behavior. Make sur
 					MouseGetPos &mousex, &mousey
 					
 					mouseClick "left",mousex,mousey,,,"D NA"
-					sleep 20
+					sleep 10
 					mouseClick "left",mousex,mousey,,,"U NA"
 					
 					WinActivate(client_b)
 					
 					mouseClick "left",mousex,mousey,,,"D NA"
-					sleep 20
+					sleep 10
 					mouseClick "left",mousex,mousey,,,"U NA"
 			
 					WinActivate(client_a)
@@ -249,7 +249,8 @@ SetCapsLockState "AlwaysOff" ;prevent Capslock default toggle behavior. Make sur
 			controlSend "{ctrl down} {alt down} {shift down} {p} {ctrl up} {alt up} {shift up}",,client_b
 		}
 
-	;Screen Recording
+/*
+		;Screen Recording
 		;start recording (bind (ctrl + alt + shift + G) in OBS)
 			^!+G:: {
 				keywait "shift"
@@ -265,6 +266,7 @@ SetCapsLockState "AlwaysOff" ;prevent Capslock default toggle behavior. Make sur
 				controlSend "{ctrl down} {alt down} {shift down} {L} {ctrl up} {alt up} {shift up}",,"ahk_exe parsecd-a.exe"
 				controlSend "{ctrl down} {alt down} {shift down} {L} {ctrl up} {alt up} {shift up}",,"ahk_exe parsecd-b.exe"
 			}
+*/
 	;autolog
 		^!y:: {
 			keyWait "y"
@@ -275,8 +277,119 @@ SetCapsLockState "AlwaysOff" ;prevent Capslock default toggle behavior. Make sur
 		
 		^!.:: {
 			keyWait "."
-		
 			controlSend "{ctrl down} {alt down} {.} {ctrl up} {alt up} ",,"ahk_exe parsecd-a.exe"
 			controlSend "{ctrl down} {alt down} {.} {ctrl up} {alt up} ",,"ahk_exe parsecd-b.exe"
 		}
+
+	;tandem teleport to lobby
+		thread_options := Map(
+			"Nakano Ruins",13,
+			"Shibuya Quartz",14,
+			"Celu Tower",15,
+			"Ueno Mirage",19,
+			"Dark Babel",32,
+			)
+		
+		^!+a:: {
+			keywait "ctrl"
+			keywait "shift"
+			keywait "alt"
+			keywait "a"
+		
+			if !WinActive(client_a) and !WinActive(client_b){
+				winActivate(client_b)
+				winActivate(client_a)
+			}
+		
+			sleep 50
+		
+			pgdn_count := thread_options["Shibuya Quartz"]
+			loop 2 {
+				ControlSend "{F12 down}",,client_a
+				ControlSend "{F12 down}",,client_b
+				sleep 15
+				ControlSend "{F12 up}",,client_a
+				ControlSend "{F12 up}",,client_b
+				sleep 5
+			}
+			sleep 500
+			loop pgdn_count {
+			ControlSend "{PgDn}",,client_a
+			ControlSend "{PgDn}",,client_b
+			}
+			sleep 300
+		
+			destination_x := 640 
+			destination_y := 592
+			yes_button_x := 685
+			yes_button_y := 493
+		
+			if WinActive(client_a) {
+				mouseClick "left",destination_x,destination_y,,,"D NA"
+				sleep 5
+				mouseClick "left",destination_x,destination_y,,,"U NA"
+				sleep 5
+				mouseClick "left",destination_x,destination_y,,,"D NA"
+				sleep 5
+				mouseClick "left",destination_x,destination_y,,,"U NA"
+				sleep 25
+				mouseClick "left",yes_button_x,yes_button_y,,,"D NA"
+				sleep 5
+				mouseClick "left",yes_button_x,yes_button_y,,,"U NA"
+				sleep 50
+
+				WinActivate(client_b)
+
+				sleep 50
+				mouseClick "left",destination_x,destination_y,,,"D NA"
+				sleep 5
+				mouseClick "left",destination_x,destination_y,,,"U NA"
+				sleep 5
+				mouseClick "left",destination_x,destination_y,,,"D NA"
+				sleep 5
+				mouseClick "left",destination_x,destination_y,,,"U NA"
+				sleep 25
+				mouseClick "left",yes_button_x,yes_button_y,,,"D NA"
+				sleep 5
+				mouseClick "left",yes_button_x,yes_button_y,,,"U NA"
+				sleep 50
+
+				WinActivate(client_a)
+			
+				mousemove yes_button_x,yes_button_y
+			}
+		
+			if WinActive(client_b) {
+				mouseClick "left",destination_x,destination_y,,,"D NA"
+				sleep 5
+				mouseClick "left",destination_x,destination_y,,,"U NA"
+				sleep 5
+				mouseClick "left",destination_x,destination_y,,,"D NA"
+				sleep 5
+				mouseClick "left",destination_x,destination_y,,,"U NA"
+				sleep 25
+				mouseClick "left",yes_button_x,yes_button_y,,,"D NA"
+				sleep 5
+				mouseClick "left",yes_button_x,yes_button_y,,,"U NA"
+				sleep 50
+
+				WinActivate(client_a)
+
+				mouseClick "left",destination_x,destination_y,,,"D NA"
+				sleep 5
+				mouseClick "left",destination_x,destination_y,,,"U NA"
+				sleep 5
+				mouseClick "left",destination_x,destination_y,,,"D NA"
+				sleep 5
+				mouseClick "left",destination_x,destination_y,,,"U NA"
+				sleep 25
+				mouseClick "left",yes_button_x,yes_button_y,,,"D NA"
+				sleep 5
+				mouseClick "left",yes_button_x,yes_button_y,,,"U NA"
+				sleep 50
+				WinActivate(client_b)
+			
+				mousemove yes_button_x,yes_button_y
+			}
+		}	
 	#HotIf
