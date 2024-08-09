@@ -16,7 +16,8 @@ client_split := StrSplit(client," ")
 imagine_process := client_split[2]
 
 ;terminate imagine clients
-^!+p:: {
+^!p:: {
+     msgbox "received"
    while ProcessExist(imagine_process) {
         ProcessClose(imagine_process)
    }
@@ -123,7 +124,7 @@ imagine_process := client_split[2]
 ;thread clicks
      ^!+a:: {
           keywait "a"
-          sleep 300
+          sleep  200
      
           destination_x := 825
           destination_y := 774
@@ -131,19 +132,18 @@ imagine_process := client_split[2]
           yes_button_y := 643
 
           mouseClick "left",destination_x,destination_y,,,"D NA"
-          sleep 15
+          sleep 25
           mouseClick "left",destination_x,destination_y,,,"U NA"
-          sleep 15
+          sleep 50
           mouseClick "left",destination_x,destination_y,,,"D NA"
-          sleep 15
+          sleep 25
           mouseClick "left",destination_x,destination_y,,,"U NA"
           sleep 50
           mouseClick "left",yes_button_x,yes_button_y,,,"D NA"
-          sleep 15
-          mouseClick "left",yes_button_x,yes_button_y,,,"U NA"
-          sleep 15
-          mouseClick "left",yes_button_x,yes_button_y,,,"D NA"
-          sleep 15
+          sleep 25
           mouseClick "left",yes_button_x,yes_button_y,,,"U NA"
           sleep 50
+          mouseClick "left",yes_button_x,yes_button_y,,,"D NA"
+          sleep 25
+          mouseClick "left",yes_button_x,yes_button_y,,,"U NA"
      }

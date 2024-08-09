@@ -35,35 +35,43 @@ SetCapsLockState "AlwaysOff" ;prevent Capslock default toggle behavior. Make sur
 					MouseGetPos &mousex, &mousey
 
 					mouseClick "left",mousex,mousey,,,"D NA"
-					sleep 10
+					sleep 25
 					mouseClick "left",mousex,mousey,,,"U NA"
-					sleep 10
+
+					sleep 15
+
 					WinActivate(client_b)
 					mouseClick "left",mousex,mousey,,,"D NA"
-					sleep 10
+					sleep 25
 					mouseClick "left",mousex,mousey,,,"U NA"
-					sleep 10
+
+					sleep 15
+
 					WinActivate(client_a)
 					mousemove mousex,mousey
 					sleep 100
 				}
 		
-			if WinActive(client_b) {
-				MouseGetPos &mousex, &mousey
+				if WinActive(client_b) {
+					MouseGetPos &mousex, &mousey
 
-				mouseClick "left",mousex,mousey,,,"D NA"
-				sleep 10
-				mouseClick "left",mousex,mousey,,,"U NA"
-	
-				sleep 10
-				WinActivate(client_a)
-				mouseClick "left",mousex,mousey,,,"D NA"
-				sleep 10
-				mouseClick "left",mousex,mousey,,,"U NA"
-				sleep 10
-				WinActivate(client_b)
-				mousemove mousex,mousey
-				sleep 100		
+					mouseClick "left",mousex,mousey,,,"D NA"
+					sleep 25
+					mouseClick "left",mousex,mousey,,,"U NA"
+				
+					sleep 15
+
+					WinActivate(client_a)
+
+					mouseClick "left",mousex,mousey,,,"D NA"
+					sleep 25
+					mouseClick "left",mousex,mousey,,,"U NA"
+
+					sleep 15
+
+					WinActivate(client_b)
+					mousemove mousex,mousey
+					sleep 100		
 				}
 			}
 
@@ -77,14 +85,18 @@ SetCapsLockState "AlwaysOff" ;prevent Capslock default toggle behavior. Make sur
 					MouseGetPos &mousex, &mousey
 
 					mouseClick "right",mousex,mousey,,,"D NA"
-					sleep 10
+					sleep 25
 					mouseClick "right",mousex,mousey,,,"U NA"
-					sleep 10
+
+					sleep 15
+
 					WinActivate(client_b)
 					mouseClick "right",mousex,mousey,,,"D NA"
-					sleep 10
+					sleep 25
 					mouseClick "right",mousex,mousey,,,"U NA"
-					sleep 10
+
+					sleep 15
+
 					WinActivate(client_a)
 					mousemove mousex,mousey
 					sleep 100
@@ -94,15 +106,19 @@ SetCapsLockState "AlwaysOff" ;prevent Capslock default toggle behavior. Make sur
 				MouseGetPos &mousex, &mousey
 
 				mouseClick "right",mousex,mousey,,,"D NA"
-				sleep 10
+				sleep 25
 				mouseClick "right",mousex,mousey,,,"U NA"
 	
-				sleep 10
+				sleep 15
+
 				WinActivate(client_a)
+
 				mouseClick "right",mousex,mousey,,,"D NA"
-				sleep 10
+				sleep 25
 				mouseClick "right",mousex,mousey,,,"U NA"
-				sleep 10
+
+				sleep 15
+
 				WinActivate(client_b)
 				mousemove mousex,mousey
 				sleep 100		
@@ -253,11 +269,11 @@ SetCapsLockState "AlwaysOff" ;prevent Capslock default toggle behavior. Make sur
 			controlSend "{shift down} {k} {shift up}",,client_b
 		}
 	;terminate imagineclients signal
-		^!+p:: { ;ctrl + shift + alt + p (Send signal to tandem_guest.ahk on PCs/VMs running the game natively)
-			keywait "shift"
-			keywait "ctrl"
-			controlSend "{ctrl down} {alt down} {shift down} {p} {ctrl up} {alt up} {shift up}",,client_a
-			controlSend "{ctrl down} {alt down} {shift down} {p} {ctrl up} {alt up} {shift up}",,client_b
+		^!p:: { ;ctrl + alt + p (Send signal to tandem_guest.ahk on PCs/VMs running the game natively)
+			keywait "p"
+			msgbox "sent"
+			controlSend "{ctrl down} {alt down} {p} {ctrl up} {alt up}",,client_a
+			controlSend "{ctrl down} {alt down} {p} {ctrl up} {alt up}",,client_b
 		}
 
 /*
@@ -412,5 +428,49 @@ SetCapsLockState "AlwaysOff" ;prevent Capslock default toggle behavior. Make sur
 		sleep 300
 		controlSend "{ctrl down} {shift down} {alt down} {a} {ctrl up} {shift up} {alt up}",,client_a
 		controlSend "{ctrl down} {shift down} {alt down} {a} {ctrl up} {shift up} {alt up}",,client_b
-		}	
+		}
+
+		enhance() {
+			controlSend "{0 down}",,"ahk_exe parsecd-b.exe"
+				sleep 50
+			controlSend "{0 up}",,"ahk_exe parsecd-b.exe"
+				sleep 1500
+			controlSend "{2 Down}",,"ahk_exe parsecd-b.exe"
+			sleep 50
+			controlSend "{2 Up}",,"ahk_exe parsecd-b.exe"
+				sleep 1500
+			controlSend "{3 Down}",,"ahk_exe parsecd-b.exe"
+			sleep 50
+			controlSend "{3 Up}",,"ahk_exe parsecd-b.exe"
+				sleep 1500
+			controlSend "{4 Down}",,"ahk_exe parsecd-b.exe"
+			sleep 50
+			controlSend "{4 Up}",,"ahk_exe parsecd-b.exe"
+				sleep 1000
+			controlSend "{5 Down}",,"ahk_exe parsecd-b.exe"
+			sleep 50
+			controlSend "{5 Up}",,"ahk_exe parsecd-b.exe"
+			sleep 100
+			loop 70 {
+				controlSend "{F9 Down}",,"ahk_exe parsecd-b.exe"
+			sleep 10
+			controlSend "{F9 Up}",,"ahk_exe parsecd-b.exe"
+			}
+		}
+		;enhancer loop toggle
+		capslock & e:: {
+			keywait "e"
+			enhance()
+		}
+		;Make windows key behave like using immersive mode on parsec clients
+		#Hotif winactive(client_a) or winactive(client_b)
+		Lwin:: {
+			if winactive(client_a) {
+				ControlSend "{Lwin}",,client_a
+			}
+			if winactive(client_b) {
+				ControlSend "{Lwin}",,client_b
+			}
+		}
+		#Hotif
 	#HotIf
