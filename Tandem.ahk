@@ -177,12 +177,11 @@ SetCapsLockState "AlwaysOff" ;prevent Capslock default toggle behavior. Make sur
 	#HotIf remote
 	;movement
 		capslock & w:: {
-			while getKeyState("capslock","P") && getKeyState("capslock","P") && getKeyState("w","P") {
+			while getKeyState("w","P") {
 				controlSend "{w down}",,client_a
 				controlSend "{w down}",,client_b
 
-			}
-			keyWait "w" 
+			} 
 				controlSend "{w up}",,client_a
 				controlSend "{w up}",,client_b
 		}
@@ -192,17 +191,15 @@ SetCapsLockState "AlwaysOff" ;prevent Capslock default toggle behavior. Make sur
 				controlSend "{a down}",,client_a
 				controlSend "{a down}",,client_b	
 			}
-			keyWait "a"
 				controlSend "{a up}",,client_a
 				controlSend "{a up}",,client_b
 		}
 
 		capslock & s:: {
-			while getKeyState("capslock","P") && getKeyState("s","P") {
+			while getKeyState("s","P") {
 				controlSend "{s down}",,client_a
 				controlSend "{s down}",,client_b	
 			}
-			keyWait "s"
 				controlSend "{s up}",,client_a
 				controlSend "{s up}",,client_b
 		}
@@ -212,7 +209,6 @@ SetCapsLockState "AlwaysOff" ;prevent Capslock default toggle behavior. Make sur
 				controlSend "{d down}",,client_a
 				controlSend "{d down}",,client_b	
 			}
-			keyWait "d"
 				controlSend "{d up}",,client_a
 				controlSend "{d up}",,client_b
 		}
@@ -255,7 +251,7 @@ SetCapsLockState "AlwaysOff" ;prevent Capslock default toggle behavior. Make sur
 			controlSend "{b down} {b up}",,client_b
 			}
 
-	;tandem windows key (if immersive mode/keyboard capturing is turned on for remote client, then this might not trigger while the window is focused)
+	;tandem windows key 
 		Capslock & tab:: { 
 			keyWait "space"
 			controlSend "{LWin}",,client_a
@@ -462,14 +458,20 @@ SetCapsLockState "AlwaysOff" ;prevent Capslock default toggle behavior. Make sur
 			keywait "e"
 			enhance()
 		}
-		;Make windows key behave like using immersive mode on parsec clients
+		;Make windows shortcuts behave like using immersive mode on parsec clients
 		#Hotif winactive(client_a) or winactive(client_b)
 		Lwin:: {
 			if winactive(client_a) {
-				ControlSend "{Lwin}",,client_a
+				while getKeyState("LWin","P") {
+				ControlSend "{Lwin down}",,client_a
+				}
+				ControlSend "{Lwin up}",,client_a
 			}
 			if winactive(client_b) {
-				ControlSend "{Lwin}",,client_b
+				while getKeyState("LWin","P") {
+				ControlSend "{Lwin down}",,client_b
+				}
+				ControlSend "{Lwin up}",,client_b
 			}
 		}
 		#Hotif
