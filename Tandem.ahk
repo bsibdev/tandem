@@ -5,7 +5,7 @@ SetCapsLockState "AlwaysOff" ;prevent Capslock default toggle behavior. Make sur
 
 
 ;settings
-	remote := 1 ; 0 if using imagineclient natively, 1 if connecting remotely
+	remote := 0 ; 0 if using imagineclient natively, 1 if connecting remotely
 
 	native_exe_a := "ahk_exe imagineclient-a.exe" ;imagine client-a "ahk_exe [Filename]"
 	native_exe_b := "ahk_exe imagineclient-b.exe" ;imagine client-b "ahk_exe [Filename]"
@@ -154,10 +154,10 @@ SetCapsLockState "AlwaysOff" ;prevent Capslock default toggle behavior. Make sur
 ;Native exclusive hotkey functions
 	#HotIf !remote
 	;terminate all open clients
-	CapsLock & p:: {
+	^!p:: {
 		
 		keyWait "p"
-
+		msgbox "Open clients will now close `n`Reload Tandem.ahk to cancel"
 		client_a_split := StrSplit(client_a," ")
 		process_a := client_a_split[2]
 
@@ -267,7 +267,7 @@ SetCapsLockState "AlwaysOff" ;prevent Capslock default toggle behavior. Make sur
 	;terminate imagineclients signal
 		^!p:: { ;ctrl + alt + p (Send signal to tandem_guest.ahk on PCs/VMs running the game natively)
 			keywait "p"
-			msgbox "sent"
+			msgbox "Imagine clients open on VMs will now close `n`Reload Tandem.ahk to cancel"
 			controlSend "{ctrl down} {alt down} {p} {ctrl up} {alt up}",,client_a
 			controlSend "{ctrl down} {alt down} {p} {ctrl up} {alt up}",,client_b
 		}
