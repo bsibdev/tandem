@@ -5,7 +5,7 @@ SetCapsLockState "AlwaysOff" ;prevent Capslock default toggle behavior. Make sur
 
 
 ;settings
-	remote := 0 ; 0 if using imagineclient natively, 1 if connecting remotely
+	remote := 1 ; 0 if using imagineclient natively, 1 if connecting remotely
 
 	native_exe_a := "ahk_exe imagineclient-a.exe" ;imagine client-a "ahk_exe [Filename]"
 	native_exe_b := "ahk_exe imagineclient-b.exe" ;imagine client-b "ahk_exe [Filename]"
@@ -24,6 +24,14 @@ SetCapsLockState "AlwaysOff" ;prevent Capslock default toggle behavior. Make sur
 			client_b := remote_exe_b
 			window := remote_window
 		}
+loop { ;suspend hotkeys if client windows not open
+	if WinExist(client_a) && WinExist(client_b) {
+		suspend(0)
+	} else {
+		suspend (1)
+	}
+	sleep 1000
+}
 ;Native & remote inclusive hotkey functions:
 	;tandem clicks - can be used to do most of what can be done with key presses if UI elements are in the same position on each window. Windows need to be the same size
 		#HotIf WinActive(client_a) or WinActive(client_b) 
@@ -77,12 +85,41 @@ SetCapsLockState "AlwaysOff" ;prevent Capslock default toggle behavior. Make sur
 
 		
 		;right
-		CapsLock & RButton:: {
+			CapsLock & RButton:: {
 
-			coordmode "mouse","client"
-		
-			if WinActive(client_a) {
+				coordmode "mouse","client"
+			
+				if WinActive(client_a) {
+						MouseGetPos &mousex, &mousey
+
+						mouseClick "right",mousex,mousey,,,"D NA"
+						sleep 25
+						mouseClick "right",mousex,mousey,,,"U NA"
+
+						sleep 15
+
+						WinActivate(client_b)
+						mouseClick "right",mousex,mousey,,,"D NA"
+						sleep 25
+						mouseClick "right",mousex,mousey,,,"U NA"
+
+						sleep 15
+
+						WinActivate(client_a)
+						mousemove mousex,mousey
+						sleep 100
+				}
+			
+				if WinActive(client_b) {
 					MouseGetPos &mousex, &mousey
+
+					mouseClick "right",mousex,mousey,,,"D NA"
+					sleep 25
+					mouseClick "right",mousex,mousey,,,"U NA"
+				
+					sleep 15
+
+					WinActivate(client_a)
 
 					mouseClick "right",mousex,mousey,,,"D NA"
 					sleep 25
@@ -91,39 +128,10 @@ SetCapsLockState "AlwaysOff" ;prevent Capslock default toggle behavior. Make sur
 					sleep 15
 
 					WinActivate(client_b)
-					mouseClick "right",mousex,mousey,,,"D NA"
-					sleep 25
-					mouseClick "right",mousex,mousey,,,"U NA"
-
-					sleep 15
-
-					WinActivate(client_a)
 					mousemove mousex,mousey
-					sleep 100
+					sleep 100		
+				}
 			}
-		
-			if WinActive(client_b) {
-				MouseGetPos &mousex, &mousey
-
-				mouseClick "right",mousex,mousey,,,"D NA"
-				sleep 25
-				mouseClick "right",mousex,mousey,,,"U NA"
-	
-				sleep 15
-
-				WinActivate(client_a)
-
-				mouseClick "right",mousex,mousey,,,"D NA"
-				sleep 25
-				mouseClick "right",mousex,mousey,,,"U NA"
-
-				sleep 15
-
-				WinActivate(client_b)
-				mousemove mousex,mousey
-				sleep 100		
-			}
-		}
 		#HotIf
 
 	;tandem mousewheel up & down
@@ -290,7 +298,7 @@ SetCapsLockState "AlwaysOff" ;prevent Capslock default toggle behavior. Make sur
 				controlSend "{ctrl down} {alt down} {shift down} {L} {ctrl up} {alt up} {shift up}",,"ahk_exe parsecd-b.exe"
 			}
 */
-	;autolog
+	;autologin - send key combination to trigger login on tandem_guest.ahk
 		^!y:: {
 			keyWait "y"
 		
@@ -300,6 +308,7 @@ SetCapsLockState "AlwaysOff" ;prevent Capslock default toggle behavior. Make sur
 		
 		^!.:: {
 			keyWait "."
+			
 			controlSend "{ctrl down} {alt down} {.} {ctrl up} {alt up} ",,"ahk_exe parsecd-a.exe"
 			controlSend "{ctrl down} {alt down} {.} {ctrl up} {alt up} ",,"ahk_exe parsecd-b.exe"
 		}
@@ -342,88 +351,9 @@ SetCapsLockState "AlwaysOff" ;prevent Capslock default toggle behavior. Make sur
 			ControlSend "{PgDn}",,client_b
 			}
 			
-
-/*			(moved to tendem_guest for more consistency)
-			sleep 300 
-		
-			destination_x := 640 
-			destination_y := 592
-			yes_button_x := 685
-			yes_button_y := 493
-		
-			if WinActive(client_a) {
-				mouseClick "left",destination_x,destination_y,,,"D NA"
-				sleep 5
-				mouseClick "left",destination_x,destination_y,,,"U NA"
-				sleep 5
-				mouseClick "left",destination_x,destination_y,,,"D NA"
-				sleep 5
-				mouseClick "left",destination_x,destination_y,,,"U NA"
-				sleep 25
-				mouseClick "left",yes_button_x,yes_button_y,,,"D NA"
-				sleep 5
-				mouseClick "left",yes_button_x,yes_button_y,,,"U NA"
-				sleep 50
-
-				WinActivate(client_b)
-
-				sleep 50
-				mouseClick "left",destination_x,destination_y,,,"D NA"
-				sleep 5
-				mouseClick "left",destination_x,destination_y,,,"U NA"
-				sleep 5
-				mouseClick "left",destination_x,destination_y,,,"D NA"
-				sleep 5
-				mouseClick "left",destination_x,destination_y,,,"U NA"
-				sleep 25
-				mouseClick "left",yes_button_x,yes_button_y,,,"D NA"
-				sleep 5
-				mouseClick "left",yes_button_x,yes_button_y,,,"U NA"
-				sleep 50
-
-				WinActivate(client_a)
-			
-				mousemove yes_button_x,yes_button_y
-			}
-		
-			if WinActive(client_b) {
-				mouseClick "left",destination_x,destination_y,,,"D NA"
-				sleep 5
-				mouseClick "left",destination_x,destination_y,,,"U NA"
-				sleep 5
-				mouseClick "left",destination_x,destination_y,,,"D NA"
-				sleep 5
-				mouseClick "left",destination_x,destination_y,,,"U NA"
-				sleep 25
-				mouseClick "left",yes_button_x,yes_button_y,,,"D NA"
-				sleep 5
-				mouseClick "left",yes_button_x,yes_button_y,,,"U NA"
-				sleep 50
-
-				WinActivate(client_a)
-
-				mouseClick "left",destination_x,destination_y,,,"D NA"
-				sleep 5
-				mouseClick "left",destination_x,destination_y,,,"U NA"
-				sleep 5
-				mouseClick "left",destination_x,destination_y,,,"D NA"
-				sleep 5
-				mouseClick "left",destination_x,destination_y,,,"U NA"
-				sleep 25
-				mouseClick "left",yes_button_x,yes_button_y,,,"D NA"
-				sleep 5
-				mouseClick "left",yes_button_x,yes_button_y,,,"U NA"
-				sleep 50
-				WinActivate(client_b)
-			
-				mousemove yes_button_x,yes_button_y
-				
-
-			}
-		*/
-		sleep 300
-		controlSend "{ctrl down} {shift down} {alt down} {a} {ctrl up} {shift up} {alt up}",,client_a
-		controlSend "{ctrl down} {shift down} {alt down} {a} {ctrl up} {shift up} {alt up}",,client_b
+			sleep 300
+			controlSend "{ctrl down} {shift down} {alt down} {a} {ctrl up} {shift up} {alt up}",,client_a
+			controlSend "{ctrl down} {shift down} {alt down} {a} {ctrl up} {shift up} {alt up}",,client_b
 		}
 
 		enhance() {

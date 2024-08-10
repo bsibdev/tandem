@@ -24,7 +24,7 @@ imagine_process := client_split[2]
 }
 
 /*
-;tandem Screen Recording ()
+;tandem Screen Recording () OBS hotkey detection is weird; figure out how to make it work.
 		;start recording (bind (ctrl + alt + shift + G) in OBS)
           ^!+G:: {
                keywait "shift"
@@ -41,7 +41,7 @@ imagine_process := client_split[2]
                controlSend "{ctrl down} {shift down} {L} {ctrl up} {shift up}",,"ahk_exe obs64.exe"
           }
 */
-;tandem autolog
+;tandem autologin
      ;functions
      launchImagine() {
           Send "{LWin down} {r} {lwin up}"
@@ -88,7 +88,7 @@ imagine_process := client_split[2]
           }    
       }
       if (!login_screen) {
-          msgbox "Login screen not found`nTake a screenshot of the LOGIN button and add it to image_match/login/","Tandem_guest","T3"
+          msgbox "Login screen not found`nTake a screenshot of the LOGIN button and add it to image_match/login/","Tandem_guest","T6"
       }
     }
 
@@ -96,7 +96,7 @@ imagine_process := client_split[2]
           keywait "ctrl"
           keywait "alt"
           keywait "y"
-          logins := StrSplit(FileRead("C:\SMTI\logins.txt"),"`n") ;change contents to logins you want to use for that client, and make sure the path matches. 
+          logins := StrSplit(FileRead("C:\SMTI\logins.txt"),"`n") ;change contents of logins.txt file to logins you want to use for that client, and make sure the path matches. 
           account := StrSplit(logins[1],",") ;logins[n] n=line of logins.txt
           
           user := account[1]
