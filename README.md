@@ -1,6 +1,7 @@
 # smti_tandem
 Execute actions on multiple windows.
 Requires two separate clients with unique filenames or PCs/VMs connected via remote toolS like RDP or Parsec with unique filenames.
+If running clients remotely: make sure remote := 1 in Tandem.ahk and run tandem_guest.ahk on the computer/VM running imagineclient.exe.
 
 Features:
 - Mouse clicks
