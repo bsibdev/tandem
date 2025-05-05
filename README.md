@@ -1,4 +1,4 @@
-# smti_tandem
+tandem
 Execute actions on multiple windows.
 Requires two separate clients with unique filenames or PCs/VMs connected via remote toolS like RDP or Parsec with unique filenames.
 
